@@ -18,15 +18,35 @@
 	<a-scene embedded vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true"
 		arjs="sourceType: webcam; debugUIEnabled: false;">
 		<a-assets>
-			<a-asset-item id="chest" src="chest.glb"></a-asset-item>
+			<a-asset-item id="chest" src="./chest.glb"></a-asset-item>
+			<a-asset-item id="bottle" src="./bottles.glb"></a-asset-item>
 		</a-assets>
 
+		<a-entity camera look-controls>
+			<a-cursor raycaster="objects: .clicavel"></a-cursor>
+		</a-entity>
+
 		<a-marker preset="hiro" id="marker">
-			<a-entity gltf-model="#chest" position="0 0 0" rotation="0 0 0" scale="0.5 0.5 0.5"></a-entity>
+			<a-entity id="chest-interactive" class="clicavel" gltf-model="#chest" position="0 0 0" rotation="0 0 0"
+				scale="0.5 0.5 0.5"></a-entity>
 		</a-marker>
 
 		<a-entity camera></a-entity>
 	</a-scene>
+
+	<script>
+		const modelo = document.querySelector('#chest-interactive');
+		let usandoModelo2 = false;
+
+		modelo.addEventListener('click', () => {
+			if (usandoModelo2) {
+				modelo.setAttribute('gltf-model', '#chest');
+			} else {
+				modelo.setAttribute('gltf-model', '#bottle');
+			}
+			usandoModelo2 = !usandoModelo2;
+		});
+	</script>
 </body>
 
 </html>
