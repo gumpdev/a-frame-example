@@ -22,16 +22,13 @@
 			<a-asset-item id="bottle" src="./bottles.glb"></a-asset-item>
 		</a-assets>
 
-		<a-entity camera look-controls>
-			<a-cursor raycaster="objects: .clicavel"></a-cursor>
-		</a-entity>
-
 		<a-marker preset="hiro" id="marker">
 			<a-entity id="chest-interactive" class="clicavel" gltf-model="#chest" position="0 0 0" rotation="0 0 0"
 				scale="0.5 0.5 0.5"></a-entity>
 		</a-marker>
-
-		<a-entity camera></a-entity>
+		<a-entity camera look-controls>
+			<a-cursor raycaster="objects: .clicavel"></a-cursor>
+		</a-entity>
 	</a-scene>
 
 	<script>
@@ -40,9 +37,23 @@
 
 		modelo.addEventListener('click', () => {
 			if (usandoModelo2) {
-				modelo.setAttribute('gltf-model', '#chest');
+				modelo.setAttribute('scale', '1 1 1');
+				modelo.setAttribute('animation__spin', {
+					property: 'rotation',
+					to: '0 360 0',
+					dur: 800,
+					easing: 'linear',
+					loop: false
+				});
 			} else {
-				modelo.setAttribute('gltf-model', '#bottle');
+				modelo.setAttribute('scale', '0.5 0.5 0.5');
+				modelo.setAttribute('animation__spin', {
+					property: 'rotation',
+					to: '0 0 0',
+					dur: 800,
+					easing: 'linear',
+					loop: false
+				});
 			}
 			usandoModelo2 = !usandoModelo2;
 		});
